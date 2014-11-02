@@ -5,8 +5,6 @@
 #include <climits>
 #include <algorithm>
 
-using std::string;
-
 CUndo::
 CUndo() :
  undo_group_(0), depth_(0), locked_(false)
@@ -35,7 +33,7 @@ startGroup()
     return false;
 
   if (depth_ == 0) {
-    assert(undo_group_ == NULL);
+    assert(undo_group_ == 0);
 
     undo_group_ = new CUndoGroup(this);
   }
@@ -59,7 +57,7 @@ endGroup()
   if (depth_ == 0) {
     undo_list_.push_back(undo_group_);
 
-    undo_group_ = NULL;
+    undo_group_ = 0;
   }
 
   return true;
@@ -76,7 +74,7 @@ addUndo(CUndoData *data)
 
   redo_list_.clear();
 
-  if (undo_group_ == NULL) {
+  if (undo_group_ == 0) {
     startGroup();
 
     addUndo(data);
@@ -223,7 +221,7 @@ addUndo(CUndoData *data)
   data->setGroup(this);
 }
 
-string
+std::string
 CUndoGroup::
 getDesc() const
 {
@@ -261,7 +259,7 @@ redo()
 
 CUndoData::
 CUndoData() :
- group_(NULL), state_(UNDO_STATE)
+ group_(0), state_(UNDO_STATE)
 {
 }
 
