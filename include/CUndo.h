@@ -64,7 +64,8 @@ class CUndoGroup {
 
  public:
   CUndoGroup(CUndo *undo);
- ~CUndoGroup();
+
+  virtual ~CUndoGroup();
 
   void addUndo(CUndoData *data);
 
