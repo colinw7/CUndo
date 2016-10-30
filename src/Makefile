@@ -18,6 +18,7 @@ CUndo.cpp \
 CPP_OBJS = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(CPP_SRC))
 
 CFLAGS = \
+-std=c++11 \
 $(CDEBUG) \
 -I$(INC_DIR) \
 -I. \
