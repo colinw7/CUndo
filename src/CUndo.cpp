@@ -201,8 +201,8 @@ unlock()
 //--------------------
 
 CUndoGroup::
-CUndoGroup(CUndo *) :
- desc_("")
+CUndoGroup(CUndo *undo) :
+ undo_(undo), desc_("")
 {
 }
 
