@@ -14,8 +14,11 @@ CUndo() :
 CUndo::
 ~CUndo()
 {
-  std::for_each(undo_list_.begin(), undo_list_.end(), CDeletePointer());
-  std::for_each(redo_list_.begin(), redo_list_.end(), CDeletePointer());
+  for (auto &undo : undo_list_)
+    delete undo;
+
+  for (auto &redo : redo_list_)
+    delete redo;
 }
 
 bool
@@ -70,7 +73,8 @@ addUndo(CUndoData *data)
   if (locked())
     return false;
 
-  std::for_each(redo_list_.begin(), redo_list_.end(), CDeletePointer());
+  for (auto &redo : redo_list_)
+    delete redo;
 
   redo_list_.clear();
 
@@ -159,8 +163,11 @@ void
 CUndo::
 clear()
 {
-  std::for_each(undo_list_.begin(), undo_list_.end(), CDeletePointer());
-  std::for_each(redo_list_.begin(), redo_list_.end(), CDeletePointer());
+  for (auto &undo : undo_list_)
+    delete undo;
+
+  for (auto &redo : redo_list_)
+    delete redo;
 
   undo_list_.clear();
   redo_list_.clear();
@@ -209,7 +216,8 @@ CUndoGroup(CUndo *undo) :
 CUndoGroup::
 ~CUndoGroup()
 {
-  std::for_each(data_list_.begin(), data_list_.end(), CDeletePointer());
+  for (auto &data : data_list_)
+    delete data;
 }
 
 void
