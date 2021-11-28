@@ -53,9 +53,9 @@ class CUndo {
  protected:
   GroupList   undo_list_;
   GroupList   redo_list_;
-  CUndoGroup *undo_group_;
-  int         depth_;
-  bool        locked_;
+  CUndoGroup* undo_group_ { nullptr };
+  int         depth_      { 0 };
+  bool        locked_     { false };
 };
 
 class CUndoGroup {
@@ -83,9 +83,9 @@ class CUndoGroup {
   CUndoGroup &operator=(const CUndoGroup &rhs);
 
  private:
-  CUndo       *undo_;
-  std::string  desc_;
-  DataList     data_list_;
+  CUndo*      undo_ { nullptr };
+  std::string desc_;
+  DataList    data_list_;
 };
 
 class CUndoData {
@@ -123,8 +123,8 @@ class CUndoData {
   CUndoData &operator=(const CUndoData &rhs);
 
  private:
-  CUndoGroup *group_;
-  State       state_;
+  CUndoGroup* group_ { nullptr };
+  State       state_ { UNDO_STATE };
 };
 
 #endif

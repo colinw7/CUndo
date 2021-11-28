@@ -6,8 +6,7 @@
 #include <algorithm>
 
 CUndo::
-CUndo() :
- undo_group_(0), depth_(0), locked_(false)
+CUndo()
 {
 }
 
@@ -60,7 +59,7 @@ endGroup()
   if (depth_ == 0) {
     undo_list_.push_back(undo_group_);
 
-    undo_group_ = 0;
+    undo_group_ = nullptr;
   }
 
   return true;
@@ -78,7 +77,7 @@ addUndo(CUndoData *data)
 
   redo_list_.clear();
 
-  if (undo_group_ == 0) {
+  if (! undo_group_) {
     startGroup();
 
     addUndo(data);
@@ -115,7 +114,7 @@ undo(uint n)
     if (undo_list_.empty())
       return false;
 
-    CUndoGroup *undo_group = undo_list_.back();
+    auto *undo_group = undo_list_.back();
 
     undo_list_.pop_back();
 
@@ -142,7 +141,7 @@ redo(uint n)
     if (redo_list_.empty())
       return false;
 
-    CUndoGroup *undo_group = redo_list_.back();
+    auto *undo_group = redo_list_.back();
 
     redo_list_.pop_back();
 
@@ -209,7 +208,7 @@ unlock()
 
 CUndoGroup::
 CUndoGroup(CUndo *undo) :
- undo_(undo), desc_("")
+ undo_(undo)
 {
 }
 
@@ -266,8 +265,7 @@ redo()
 //--------------------
 
 CUndoData::
-CUndoData() :
- group_(0), state_(UNDO_STATE)
+CUndoData()
 {
 }
 
